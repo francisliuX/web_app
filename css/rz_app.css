@@ -1,0 +1,27 @@
+body{
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    font: 12px/1.5 Helvetica,Arial;
+    color: #333;
+    -webkit-text-size-adjust: none;
+}
+body *{
+    -webkit-tap-highlight-color :transparent;
+    -webkit-webkit-user-select: none;
+    -moz-webkit-user-select: none;
+    -ms-webkit-user-select: none;
+    -o-webkit-user-select: none;
+    -khtml-webkit-user-select: none;
+    webkit-user-select: none;
+}
+.pack-sub em{
+    width: 38px ;
+    height: 20px;
+    display: inline-block;
+    margin-left: 3px;
+    font-size: 14px;
+    background-color: #ff599b;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+}
