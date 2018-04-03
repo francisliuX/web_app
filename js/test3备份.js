@@ -6,11 +6,11 @@ $(function() {
         var isSmallWidth = windowWidth < 768;
         //遍历轮播图中每一项
         $(".carousel-inner>.item").each(function(i, item) {
-            '[html] view plain copy'
+            [html] view plain copy
             //需要将DOM对象转化为jqurey对象，才能调用jquery方法
             var $item = $(item);
             //根据屏幕宽度给轮播图中的背景图片设置为大图片或是小图片
-            var imgUrl = isSmallWidth ? $item+`<span style="color:#ff0000;">`+data+`</span>`+("img-xs") : $item.data("img-lg");
+            var imgUrl = isSmallWidth ? $item.<span style="color:#ff0000;">data</span>("img-xs") : $item.data("img-lg");
             $item.css('backgroundImage', 'url("' + imgUrl + '")');
             //当屏幕为小屏幕时，给轮播图加上图片项，使其能够进行等比例缩放
             if (isSmallWidth) {
@@ -32,12 +32,12 @@ $(function() {
     var startClientX=0;
     var clientX=30;
     $carousel.on("touchstart",function(e){
-    `<span style="color:#ff0000;">`.startClientX=e.originalEvent.touches[0].clientX;+`</span>`
+    <span style="color:#ff0000;"> startClientX=e.originalEvent.touches[0].clientX;</span>
     })
 
     $carousel.on("touchmove",function(e){
         //然后的得到用户移动后的坐标
-    `<span style="color:#ff0000;">var targetClientX=e.originalEvent.touches[0].clientX;</span>`
+    <span style="color:#ff0000;">var targetClientX=e.originalEvent.touches[0].clientX;</span>
         //判断用户移动的距离是否超过了阈值
         var target=Math.abs(targetClientX-startClientX);
         if(target>clientX){
@@ -45,5 +45,5 @@ $(function() {
             $(".carousel").carousel(targetClientX-startClientX>0?"prev":"next");
 
         }
-    })
+
     })
