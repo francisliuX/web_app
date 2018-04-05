@@ -31,21 +31,24 @@
 <!-- Fixed navbar -->
 
 
-<div class="container theme-showcase" role="main">
-    <dvi class="container">
-        <div class="row" style="position: absolute; z-index: 10;">
-            <div style="display:inline-block" class="col-md-4 col-lg-3 col-xs-3 col-sm-3">睿智</div>
-            <div style="display:inline-block" class="col-md-4 col-lg-6 col-xs-6 col-sm-6">
-                <form class="bs-example bs-example-form" role="form">
-                    <div class="input-group">
-                        <input type="text" class="from-control">
-                        <span class="input-group-addon">Q</span>
-                    </div>
-                </form>
+<div id="fixedtop" search_land_searchtransformation_show="true" class="showfixedtop" style="top: 0px;">
+    <div id="index_search_main" search_land_searchtransformation_show="true" class="jd-header-home-wrapper">
+        <div class="jd-search-container on-blur" id="index_search_head">
+            <div style="opacity: 0;" class="jd-search-box-cover">睿智</div>
+            <div class="jd-search-box">
+                <div class="jd-search-tb"></div>
+                    <form action="/ware/search.action" id="index_searchForm" class="jd-search-from" style="padding-left:0px">
+                        <div id="jdSearchBarWrapper">
+                            <div  class="jd-search-form-box cf"></div>
+                            <input type="text" class="from-control">
+                            <span class="input-group-addon">Q</span>
+                        </div>
+                    </form>
+                <div class="jd-search-login login-ing"></div>
             </div>
             <div style="display:inline-block" class="col-md-4 col-lg-3 col-xs-3 col-sm-3">定位</div>
         </div>
-    </dvi>
+    </div>
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 
         <ol class="carousel-indicators">
