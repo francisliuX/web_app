@@ -22,7 +22,7 @@
     color: #686868;
     font-size: .6875rem;
     display: block;
-    padding-bottom: 40px;
+    padding-bottom: 60px;
     text-align: center;
     font-family: PingFang-Medium,PingFangSC-Regular,Helvetica;
 }
@@ -36,7 +36,7 @@
 
 .row-offcanvas{
     /*position: relative;*/
-    padding-top: 86px;
+    padding-top:136px;
 }
 .position-ab.quick-entry-nav {
     padding: 10px 0;
@@ -44,7 +44,7 @@
 }
 .form-control{
     padding: 6px 12px ;
-    height: 14px;
+    height: 22px;
     font-size: 9px;
     -webkit-border-radius: 16px;
     -moz-border-radius: 16px;
@@ -56,7 +56,19 @@
     white-space:nowrap;
 }
 .position-ab img{
-    width: 25px;
-    height: 25px;
+    width: 45px;
+    height: 45px;
 }
-
+.middle_img img{
+    width: 10em;
+    height: 10em;
+}
+.ul li{
+    margin-right: 2px;
+    list-style-type:none;
+    border: 1px solid red;
+    float: left;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
