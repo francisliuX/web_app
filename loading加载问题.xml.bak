@@ -1,0 +1,124 @@
+<xml>
+  （1）  用js加载就得放在页头
+
+
+       图片无法加载时onerror处理
+
+            1.当我们设置的图片无法加载或者设置默认图片时，都可以使用                     onerror，可以省去一些判断
+
+        一,直接写在行内，简单但是可能存在隐患，当设置的默认图片不存在或者              因为网速没有加载出来时，会造成抖动，以至浏览器崩溃
+
+            <img src="" alt="" onerror="javascript:this.src='                     ./images/default.jpg'"/>
+
+        二.网上很多这样写，但是存在火狐不兼容的情况
+
+            <img src="./images/0.jpg" alt="" onerror="nofind()"/>
+            <script>
+                function nofind(){
+                    var img=event.srcElement;
+                    img.src="./default.jpg";
+                    img.onerror=null;       //控制不要一直跳动
+                }
+            </script>
+
+        三.我认为这样更好
+
+            <img src="./images/0.jpg" alt="" onerror="nofind(this)"/>
+            <script>
+                function nofind(_this){
+                    _this.src="./images/default.jpg";
+                    _this.onerror=null;
+                }
+            </script>
+
+
+     (2)   1.第一种方法：
+            如果已经引入了jquery插件，就很好办。没有的话，如果实在需要，可以            附上代码：
+
+           script(type='text/javascript', src="http://ajax                    .googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js")
+        //这是jade文件的写法，可以自行转换为html
+
+        handle error
+        $('img').error(function(){
+        $(this).attr('src', "default.jpg(默认图片的url地址)");
+        });
+
+        2.第二种方法：如果img标签是少量的话，可以用这个：
+        img的onerror事件
+
+        <img src='test.jpg' alt='test' onerror="this.src='default.jpg'"/>
+        //alt属性的意思是在图片为加载成功时显示的文字
+
+
+
+    (3)实现图片预加载的几种方式
+1.使用纯的css进行图片预加载
+
+    body:after {
+    content: "";
+    display: block;
+    position: absolute;
+    background: url("../image/manage/help/help_item2_01.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_02.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_03.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_04.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_05.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_06.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_07.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_01.png?v=201707241359") no-repeat -10000px -1000px;
+    width: 0;
+    height: 0
+    }
+
+    原理是加载了该图片，但是我们不显示在可视范围内。这种方式极其简单。但是也有一个致命的弱点，图片跟随文档一同加载，有时候我们为了提高文档的加载速度，那么这种方式方式就不适合了。
+
+
+
+2.使用纯javascript进行图片预加载
+
+    //存放图片路径的数组
+    var imgSrcArr = [
+    'imgsrc1',
+    'imgsrc2',
+    'imgsrc3',
+    'imgsrc4'
+    ];
+
+    var imgWrap = [];
+
+    function preloadImg(arr) {
+    for(var i =0; i< arr.length ;i++) {
+    imgWrap[i] = new Image();
+    imgWrap[i].src = arr[i];
+    }
+    }
+
+    preloadImg(imgSrcArr);
+
+    //或者延迟的文档加载完毕在加载图片
+
+    $(function () {
+    preloadImg(imgSrcArr);
+    })
+
+
+
+3.使用css+js方式进行图片预加载
+
+    .preload-img:after{
+    content:"",
+    background: url("../image/manage/help/help_item2_01.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_02.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_03.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_04.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_05.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_06.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_07.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_01.png?v=201707241359") no-repeat -10000px -1000px;
+    }
+
+    /*
+    比如我们写了上面的这样一个类，但是页面中没有用到，我们在文档加载完毕之后，给某个元素添加该类
+    */
+
+    $(function(){
+    $("#target").addClass("preload-img")
+    })
+
+
+4.使用ajax方式进行图片预加载
+
+    $(function(){
+    $.get('图片的路径');
+    })
+    /*
+    当然我们也可以写成一个函数，这里我就不演示了
+    */
+
+</xml>

@@ -1,0 +1,230 @@
+<xml>
+  （1）  用js加载就得放在页头
+
+
+       图片无法加载时onerror处理
+
+            1.当我们设置的图片无法加载或者设置默认图片时，都可以使用                     onerror，可以省去一些判断
+
+        一,直接写在行内，简单但是可能存在隐患，当设置的默认图片不存在或者              因为网速没有加载出来时，会造成抖动，以至浏览器崩溃
+
+            <img src="" alt="" onerror="javascript:this.src='                     ./images/default.jpg'"/>
+
+        二.网上很多这样写，但是存在火狐不兼容的情况
+
+            <img src="./images/0.jpg" alt="" onerror="nofind()"/>
+            <script>
+                function nofind(){
+                    var img=event.srcElement;
+                    img.src="./default.jpg";
+                    img.onerror=null;       //控制不要一直跳动
+                }
+            </script>
+
+        三.我认为这样更好
+
+            <img src="./images/0.jpg" alt="" onerror="nofind(this)"/>
+            <script>
+                function nofind(_this){
+                    _this.src="./images/default.jpg";
+                    _this.onerror=null;
+                }
+            </script>
+
+
+     (2)   1.第一种方法：
+            如果已经引入了jquery插件，就很好办。没有的话，如果实在需要，可以            附上代码：
+
+           script(type='text/javascript', src="http://ajax                    .googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js")
+        //这是jade文件的写法，可以自行转换为html
+
+        handle error
+        $('img').error(function(){
+        $(this).attr('src', "default.jpg(默认图片的url地址)");
+        });
+
+        2.第二种方法：如果img标签是少量的话，可以用这个：
+        img的onerror事件
+
+        <img src='test.jpg' alt='test' onerror="this.src='default.jpg'"/>
+        //alt属性的意思是在图片为加载成功时显示的文字
+
+
+
+    (3)实现图片预加载的几种方式
+1.使用纯的css进行图片预加载
+
+    body:after {
+    content: "";
+    display: block;
+    position: absolute;
+    background: url("../image/manage/help/help_item2_01.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_02.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_03.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_04.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_05.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_06.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_07.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_01.png?v=201707241359") no-repeat -10000px -1000px;
+    width: 0;
+    height: 0
+    }
+
+    原理是加载了该图片，但是我们不显示在可视范围内。这种方式极其简单。但是也有一个致命的弱点，图片跟随文档一同加载，有时候我们为了提高文档的加载速度，那么这种方式方式就不适合了。
+
+
+
+2.使用纯javascript进行图片预加载
+
+    //存放图片路径的数组
+    var imgSrcArr = [
+    'imgsrc1',
+    'imgsrc2',
+    'imgsrc3',
+    'imgsrc4'
+    ];
+
+    var imgWrap = [];
+
+    function preloadImg(arr) {
+    for(var i =0; i< arr.length ;i++) {
+    imgWrap[i] = new Image();
+    imgWrap[i].src = arr[i];
+    }
+    }
+
+    preloadImg(imgSrcArr);
+
+    //或者延迟的文档加载完毕在加载图片
+
+    $(function () {
+    preloadImg(imgSrcArr);
+    })
+
+
+
+3.使用css+js方式进行图片预加载
+
+    .preload-img:after{
+    content:"",
+    background: url("../image/manage/help/help_item2_01.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_02.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_03.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_04.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_05.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_06.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_07.png?v=201707241359") no-repeat -10000px -1000px,url("../image/manage/help/help_item2_01.png?v=201707241359") no-repeat -10000px -1000px;
+    }
+
+    /*
+    比如我们写了上面的这样一个类，但是页面中没有用到，我们在文档加载完毕之后，给某个元素添加该类
+    */
+
+    $(function(){
+    $("#target").addClass("preload-img")
+    })
+
+
+4.使用ajax方式进行图片预加载
+
+    $(function(){
+    $.get('图片的路径');
+    })
+    /*
+    当然我们也可以写成一个函数，这里我就不演示了
+    */
+
+
+
+
+
+3分钟读懂移动端rem使用方法
+
+1、为什么要用rem
+		博客很久没写了，原因很简单。
+
+		最近接手了一个项目，要同时做PC和移动端的页面，之前没接触过，但毕竟给钱的是大爷，所以还是硬着头皮上了。
+
+		移动端最麻烦的是什么？
+
+		不同分辨率适配！
+
+		具体来说，有的屏幕320px宽，有的屏幕640px宽，有的更宽，如果你写固定px，那么要么小的放不下，要么大的有大片空白。
+
+		怎么办？
+
+		如果元素固定占用屏幕空间（一般是指宽度而非高度，下同）的百分之xx就ok了。
+
+		比如320px的10%是32px，640px的10%是64px，
+
+		如果10个10%宽度的元素放在一起，那肯定就是100%，即挤满屏幕（宽度），不会超出，也不会留白。
+
+		简单理解：
+
+		rem 就是指屏幕宽度的百分之x；
+
+		或者说，n个rem = 用户可视区域100%宽度
+
+		注意，之所以不说高度，是因为宽度（x轴）满了后，y轴（高度）方向的内容可以通过滚动屏幕来查看
+
+		上实例：
+
+		1、设计师给一个640px宽度的设计图，
+
+		2、你假定64rem=100%宽度（这里是640px），那么1rem=10px；
+
+		3、你照着写出了静态页面，然后按照1rem=10px的比例，将设计图上的元素的大小，全部用rem写下；
+
+		4、完美，你写的静态页面在640px宽度的页面上正常展示了；
+
+		5、A用户使用的是320px宽度的手机，因为你假设64rem=100%宽度，因此此时1rem=5px（320/64=5），于是也完美展示了；
+
+
+
+
+2、rem怎么用？
+		rem是css单位；
+		1rem的大小是通过html下的font-size这个css属性告诉浏览器的；
+		使用替换px所在的位置即可
+		假定你预设在设计稿的时候 1rem = 10px;
+
+		然后一个元素（class=”ele”）的宽度是20px，高度30px（设计稿），
+
+		那么你的css这么写就可以了；
+
+		html {
+			font-size: 10px;
+		}
+
+		.ele {
+			width: 2rem;
+			height 3rem;
+		}
+3、在任何分辨率下都适用
+		发现问题在哪里了么？如何确认1rem等于多少px？
+
+		原因是rem是css中使用的单位，css是不会帮你计算1rem是多少px的，只能通过你自己来计算。
+
+		计算方式很简单，简单来说：
+
+		1、你有一个设计稿A（假定640px），有一个预设的rem和px的比例B（假如是1rem = 10px）
+
+		2、获取用户浏览器的可视区域的宽度C（假如是320px），那么他此时1rem的尺寸D 可以根据 B/A = D/C 这个公式得知
+
+		3、原因是你假定屏幕可以容纳多少个rem，这是一个固定比例（如这里就是64rem）
+
+		1 rem = B / A * C;
+		//代入可得
+		1 rem = 10px / 640px * 320px = 5px;
+4、其他
+		1、用户加载完后，你就得设置好1rem的尺寸吧（记得是设置在html元素下的font-size）；
+
+		2、假如用户屏幕的尺寸会变，你肯定得考虑吧（刷新1）；
+
+		3、你懒得去找相应的代码，我总得给你吧（如下）；
+
+		var fun = function (doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function () {
+					var clientWidth = docEl.clientWidth;
+					if (!clientWidth) return;
+
+					//这里是假设在640px宽度设计稿的情况下，1rem = 20px；
+					//可以根据实际需要修改
+					docEl.style.fontSize = 20 * (clientWidth / 640) + 'px';
+				};
+			if (!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		}
+		fun(document, window);
+		直接执行即可
+</xml>

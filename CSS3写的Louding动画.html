@@ -1,0 +1,156 @@
+<html>
+	<body>
+<!--
+	transform   为变型属性  ie10  火狐  其他浏览器需要 -webkit-
+			属性有 
+			translate()   
+			rotate()   旋转角度
+			scale()   尺寸更改 变形
+			skew()   
+			matrix()   
+-->
+		
+<style>
+.loading{
+	width:33%;
+	height:500px;
+	padding:50px;
+	float:left;
+}
+
+@-webkit-keyframes loading-3{
+	50%{
+		transform:scale(0.4);
+		opacity:0.3;
+	}
+	100%{
+		transform:scale(1);
+		opacity:1;
+	}
+}
+.loading-3{
+	position:relative;
+}
+.loading-3 i{
+	display:block;
+	width:15px;
+	height:15px;
+	border-radius:50%;
+	background-color:#333;
+	position:absolute;
+}
+.loading-3 i:nth-child(1){
+	top:25px;
+	left:0;
+	-webkit-animation:loading-3 1s ease 0s infinite;
+}
+.loading-3 i:nth-child(2){
+	top:17px;
+	left:17px;
+	-webkit-animation:loading-3 1s ease 0.12s infinite;
+}
+.loading-3 i:nth-child(3){
+	top:0;
+	left:25px;
+	-webkit-animation:loading-3 1s ease 0.24s infinite;
+}
+.loading-3 i:nth-child(4){
+	top:-17px;
+	left:17px;
+	-webkit-animation:loading-3 1s ease 0.36s infinite;
+}
+.loading-3 i:nth-child(5){
+	top:-25px;
+	left:0;
+	-webkit-animation:loading-3 1s ease 0.48s infinite;
+}
+.loading-3 i:nth-child(6){
+	top:-17px;
+	left:-17px;
+	-webkit-animation:loading-3 1s ease 0.6s infinite;
+}
+.loading-3 i:nth-child(7){
+	top:0;
+	left:-25px;
+	-webkit-animation:loading-3 1s ease 0.72s infinite;
+}
+.loading-3 i:nth-child(8){
+	top:17px;
+	left:-17px;
+	-webkit-animation:loading-3 1s ease 0.84s infinite;
+}
+
+
+
+
+
+@-webkit-keyframes loading-2{
+	0%{
+		transform:scaleY(1);
+	}
+	50%{
+		transform:scaleY(0.4);
+	}
+	100%{
+		transform:scaleY(1);
+	}
+	 
+}
+
+
+.loading-2 i{
+	 display:inline-block;
+	 width:4px;
+	 height:35px;
+	 border-radius:2px;
+	 margin:0 2px;
+	 background-color:#333;
+}
+.loading-2 i:nth-child(1){
+	-webkit-animation:loading-2 1s ease-in 0.1s infinite;
+}
+.loading-2 i:nth-child(2){
+	-webkit-animation:loading-2 1s ease-in 0.2s infinite;
+}
+.loading-2 i:nth-child(3){
+	-webkit-animation:loading-2 1s ease-in 0.3s infinite;
+}
+.loading-2 i:nth-child(4){
+	-webkit-animation:loading-2 1s ease-in 0.4s infinite;
+}
+.loading-2 i:nth-child(5){
+	-webkit-animation:loading-2 1s ease-in 0.5s infinite;
+}
+</style>	
+		
+<div class="loading">
+		<div class="loading-3">
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+		</div>
+</div>
+	
+<div class="loading">
+	<div class="loading-2">
+		<i></i>
+		<i></i>
+		<i></i>
+		<i></i>
+		<i></i>
+ 
+	</div>
+</div>
+		
+		
+		
+		
+		
+		
+	</body>
+</html>
